@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fibonacci Calculator</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        input, button {
+            margin: 10px 0;
+            padding: 10px;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+        async function fetchFibonacci() {
+            const n = document.getElementById('fibInput').value;
+            const apiUrl = 'http://localhost:5000/fibonacci?n=' + n; // Replace <your-api-url> with your deployed API URL
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                document.getElementById('result').textContent = 'Result: ' + data['nth Fibonacci Number'];
+            } catch (error) {
+                console.error('Error fetching Fibonacci number:', error);
+                document.getElementById('result').textContent = 'Error fetching result.';
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Fibonacci Number Calculator</h1>
+        <input type="number" id="fibInput" placeholder="Enter a number" />
+        <button onclick="fetchFibonacci()">Calculate</button>
+        <p id="result"></p>
+    </div>
+</body>
+</html>
